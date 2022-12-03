@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from st_aggrid import AgGrid
 
 st.title('Uber pickups in NYC')
 
@@ -18,6 +19,7 @@ def load_data(nrows):
 
 data_load_state = st.text('Loading data...')
 data = load_data(10000)
+df_agrid = AgGrid(data)
 data_load_state.text("Done! (using st.cache)")
 
 if st.checkbox('Show raw data'):
@@ -34,3 +36,4 @@ filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
 
 st.subheader('Map of all pickups at %s:00' % hour_to_filter)
 st.map(filtered_data)
+
